@@ -19,14 +19,14 @@ return new class extends Migration
             $table->text('requester_name');
             $table->text('technician');
             $table->text('subject');
-            $table->date('dateofcreate');
+            $table->string('dateofcreate',20);
             $table->longText('description');
             $table->text('priority');
             $table->enum('request_type',['new', 'existing', 'reopen']);
             $table->enum('status',['open', 'closed', 'archieved']);
-            $table->date('due_date');
-            $table->date('date_closed');
-            $table->date('date_archived');
+            $table->string('due_date',20);
+            $table->string('date_closed',20);
+            $table->string('date_archived',20);
             $table->timestamps();
         });
     }
