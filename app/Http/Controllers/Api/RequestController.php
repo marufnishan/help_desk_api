@@ -16,7 +16,16 @@ class RequestController extends Controller
      */
     public function index()
     {
-        //
+        //Here orderBy  id is ticketno
+        $get_request=ModelsRequest::orderBy('id','DESC')->get();
+        if(!$get_request->isEmpty())
+        {
+            return response()->json(['data'=>$get_request]);
+        }
+        else
+        {
+            return response()->json(['status'=>false]);
+        }
     }
 
     /**
@@ -51,11 +60,11 @@ class RequestController extends Controller
             'date_closed' => 'required',
             'date_archived' => 'required',
         ]);
-   
-        if($validator->fails()){   
-            return response()->json(['error'=>$validator->errors()]);   
+
+        if($validator->fails()){
+            return response()->json(['error'=>$validator->errors()]);
         }
-   
+
         $input = $request->all();
 
         $requests = ModelsRequest::create($input);
@@ -70,7 +79,17 @@ class RequestController extends Controller
      */
     public function show($id)
     {
-        //
+        $ticketno=$id;
+        $ticket_details=ModelsRequest::where('id','=',$ticketno)->get();
+        if(!$ticket_details->isEmpty())
+        {
+            return response()->json(['data'=>$ticket_details]);
+        }
+        else
+        {
+            return response()->json(['status'=>false]);
+        }
+
     }
 
     /**
@@ -93,7 +112,19 @@ class RequestController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //Here orderBy  id is ticketno
+        // return $request->all();
+        $ticketno=$id;
+        $change_options=ModelsRequest::where('id',$ticketno)
+        ->update($request->all());
+        if(!empty($change_options))
+        {
+            return response()->json(['data'=>$request->all()]);
+        }
+        else
+        {
+            return response()->json(['status'=>false]);
+        }
     }
 
     /**

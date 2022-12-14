@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ForgotPasswordController;
 use App\Http\Controllers\Api\RequestController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +28,8 @@ Route::post('register',[AuthController::class,'register']);
 Route::get('logout',[AuthController::class,'logout'])->middleware('auth:sanctum');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password');
+
+
+Route::post('get-user-name',[UserController::class,'getUserName']);
 
 Route::resource('requests', RequestController::class);
